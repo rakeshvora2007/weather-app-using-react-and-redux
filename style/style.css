@@ -10,3 +10,25 @@ td, th {
 svg {
     height: 150px;
 }
+
+td:first-of-type, td:first-of-type>div {
+    height:200px;
+    width:250px;
+  }
+  
+
+td:first-of-type>div {
+  border: 1px solid pink;
+
+}
+
+.heading {
+  text-align :center;
+  padding: 20px;
+  color: yellowgreen;
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+.thead {
+  color: darkorange;
+}
