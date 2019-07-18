@@ -4,10 +4,14 @@
   "description": "Weather application showing weather condition for different cities",
   "main": "index.js",
   "repository": "git@github.com:rakeshvora2007/weather-app-using-react-and-redux.git",
+  "homepage": "https://rakeshvora2007.github.io/weather-app-using-react-and-redux",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build": "webpack --mode production",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +22,7 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.0.0",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
@@ -28,6 +33,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "babel-preset-stage-1": "^6.1.18",
+    "gh-pages": "^2.0.1",
     "lodash": "^3.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

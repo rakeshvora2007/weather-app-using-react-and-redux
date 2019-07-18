@@ -1,14 +1,16 @@
+// const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const htmlWebpackPlugin = 
+
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
+  entry: __dirname + "/src/index.js",
   output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: __dirname + "/build",
+    filename: 'index.js'
   },
   module: {
     loaders: [{
+      test: /\.js?$/,
       exclude: /node_modules/,
       loader: 'babel',
       query: {
@@ -22,5 +24,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: './'
-  }
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: __dirname + "/index.html",
+    filename: __dirname + '/build/index.html',
+    inject: 'body'
+})]
 };
