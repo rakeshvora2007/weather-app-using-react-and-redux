@@ -48360,10 +48360,10 @@
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -48387,102 +48387,114 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var WeatherList = function (_Component) {
-	    _inherits(WeatherList, _Component);
+	  _inherits(WeatherList, _Component);
 
-	    function WeatherList() {
-	        _classCallCheck(this, WeatherList);
+	  function WeatherList() {
+	    _classCallCheck(this, WeatherList);
 
-	        return _possibleConstructorReturn(this, (WeatherList.__proto__ || Object.getPrototypeOf(WeatherList)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (WeatherList.__proto__ || Object.getPrototypeOf(WeatherList)).apply(this, arguments));
+	  }
+
+	  _createClass(WeatherList, [{
+	    key: "renderWeather",
+	    value: function renderWeather(cityData) {
+	      var name = cityData.city.name;
+	      var temps = cityData.list.map(function (weather) {
+	        return weather.main.temp;
+	      });
+	      var pressure = cityData.list.map(function (weather) {
+	        return weather.main.pressure;
+	      });
+	      var humidity = cityData.list.map(function (weather) {
+	        return weather.main.humidity;
+	      });
+	      return _react2.default.createElement(
+	        "tr",
+	        { key: name },
+	        _react2.default.createElement(
+	          "td",
+	          null,
+	          cityData.city.name
+	        ),
+	        _react2.default.createElement(
+	          "td",
+	          null,
+	          _react2.default.createElement(_chart2.default, { data: temps, color: "red", units: "K" })
+	        ),
+	        _react2.default.createElement(
+	          "td",
+	          null,
+	          _react2.default.createElement(_chart2.default, { data: pressure, color: "orange", units: "hPa" })
+	        ),
+	        _react2.default.createElement(
+	          "td",
+	          null,
+	          _react2.default.createElement(_chart2.default, { data: humidity, color: "grey", units: "%" })
+	        )
+	      );
 	    }
+	  }, {
+	    key: "removeDuplicates",
+	    value: function removeDuplicates(arr) {
+	      var uniqueAddresses = Array.from(new Set(arr.map(function (a) {
+	        return a.city.id;
+	      }))).map(function (id) {
+	        return arr.find(function (a) {
+	          return a.city.id === id;
+	        });
+	      });
+	      return uniqueAddresses;
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "table",
+	        { className: "table table-hover" },
+	        _react2.default.createElement(
+	          "thead",
+	          null,
+	          _react2.default.createElement(
+	            "tr",
+	            null,
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              " CITY "
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              " TEMPERATURE (K) "
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              " PRESSURE (hPa) "
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              " HUMIDITY (%) "
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "tbody",
+	          null,
+	          this.removeDuplicates(this.props.weather).map(this.renderWeather)
+	        )
+	      );
+	    }
+	  }]);
 
-	    _createClass(WeatherList, [{
-	        key: 'renderWeather',
-	        value: function renderWeather(cityData) {
-	            var name = cityData.city.name;
-	            var temps = cityData.list.map(function (weather) {
-	                return weather.main.temp;
-	            });
-	            var pressure = cityData.list.map(function (weather) {
-	                return weather.main.pressure;
-	            });
-	            var humidity = cityData.list.map(function (weather) {
-	                return weather.main.humidity;
-	            });
-	            return _react2.default.createElement(
-	                'tr',
-	                { key: name },
-	                _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    cityData.city.name
-	                ),
-	                _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_chart2.default, { data: temps, color: 'red', units: 'K' })
-	                ),
-	                _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_chart2.default, { data: pressure, color: 'orange', units: 'hPa' })
-	                ),
-	                _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_chart2.default, { data: humidity, color: 'grey', units: '%' })
-	                )
-	            );
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'table',
-	                { className: 'table table-hover' },
-	                _react2.default.createElement(
-	                    'thead',
-	                    null,
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            ' CITY '
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            ' TEMPERATURE (K) '
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            ' PRESSURE (hPa) '
-	                        ),
-	                        _react2.default.createElement(
-	                            'th',
-	                            null,
-	                            ' HUMIDITY (%) '
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'tbody',
-	                    null,
-	                    this.props.weather.map(this.renderWeather)
-	                )
-	            );
-	        }
-	    }]);
-
-	    return WeatherList;
+	  return WeatherList;
 	}(_react.Component);
 
 	function mapStateToProps(_ref) {
-	    var weather = _ref.weather;
+	  var weather = _ref.weather;
 
-	    return { weather: weather };
+	  return { weather: weather };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(WeatherList);
@@ -63151,7 +63163,6 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
 
-	  console.log(action);
 	  switch (action.type) {
 	    case _index.FETCH_WEATHER:
 	      if (action.payload.data !== undefined) {
