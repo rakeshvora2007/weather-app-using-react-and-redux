@@ -76,7 +76,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)(), _reduxPromise2.default)(_redux.createStore);
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxPromise2.default)(_redux.createStore);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -48847,7 +48847,7 @@
 	            this.removeDuplicates(this.props.weather.data).map(this.renderWeather)
 	          )
 	        ),
-	        _react2.default.createElement(_snackbar.Snackbar, { message: "snackbar" })
+	        this.props.weather.error.status ? _react2.default.createElement(_snackbar.Snackbar, { message: this.props.weather.error.message }) : null
 	      );
 	    }
 	  }]);
@@ -48858,6 +48858,7 @@
 	function mapStateToProps(_ref) {
 	  var weather = _ref.weather;
 
+	  console.log(weather);
 	  return { weather: weather };
 	}
 
@@ -63511,23 +63512,37 @@
 	var Snackbar = exports.Snackbar = function Snackbar(_ref) {
 	    var message = _ref.message;
 
-	    var _useState = (0, _react.useState)(false),
+	    var _useState = (0, _react.useState)(true),
 	        _useState2 = _slicedToArray(_useState, 2),
 	        view = _useState2[0],
 	        setView = _useState2[1];
+
+	    var _useState3 = (0, _react.useState)(""),
+	        _useState4 = _slicedToArray(_useState3, 2),
+	        text = _useState4[0],
+	        setText = _useState4[1];
+
+	    (0, _react.useEffect)(function () {
+	        if (message) {
+	            setText(message.split("*")[0]);
+	        }
+	        show();
+	        return function () {};
+	    }, [message]);
 
 	    var show = function show() {
 	        setView(true);
 	        setTimeout(function () {
 	            setView(false);
-	        }, 3000);
+	            setText("");
+	        }, 2000);
 	    };
 
 	    if (view) {
 	        return _react2.default.createElement(
 	            "div",
 	            { style: styles.snackbarContainer },
-	            message
+	            text
 	        );
 	    } else {
 	        return null;
@@ -63542,7 +63557,12 @@
 	        width: "200px",
 	        textAlign: "center",
 	        color: "white",
-	        fontWeight: "500"
+	        fontWeight: "500",
+	        position: "fixed",
+	        top: "1%",
+	        left: "50%",
+	        transform: "translate(-50%, 0%)",
+	        animationDelay: "2s"
 	    }
 	};
 
@@ -63584,8 +63604,9 @@
 	  switch (action.type) {
 	    case _index.FETCH_WEATHER:
 	      if (action.error) {
+	        curr++;
 	        return {
-	          error: { status: true, message: action.payload.response.data.message },
+	          error: { status: true, message: action.payload.response.data.message + "*" + curr },
 	          data: state.data
 	        };
 	      } else if (action.payload.data !== undefined) {
@@ -63605,6 +63626,8 @@
 	var _index = __webpack_require__(71);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var curr = 0;
 
 /***/ })
 /******/ ]);
