@@ -52,13 +52,19 @@ class WeatherList extends Component {
             {this.removeDuplicates(this.props.weather.data).map(this.renderWeather)}
           </tbody>
         </table>
-        <Snackbar message="snackbar"/>
+        {
+          this.props.weather.error.status ?
+          <Snackbar message={this.props.weather.error.message}/>
+          :
+          null
+        }
       </div>
     );
   }
 }
 
 function mapStateToProps({ weather }) {
+  console.log(weather)
   return { weather };
 }
 
