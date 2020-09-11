@@ -1,14 +1,23 @@
 import { FETCH_WEATHER } from "../actions/index";
 
-export default function(state = [], action) {
+export default function(state, action) {
   switch (action.type) {
-    case 'FETCH_WEATHER':
+    case FETCH_WEATHER:
     if(action.error) {
-      console.log("error");
+      return {
+        error: {status: true, message: action.payload.response.data.message},
+        data: state.data
+      }
     } else if (action.payload.data !== undefined) {
-        return [action.payload.data, ...state];
+       return {
+         error: {status: false, message: ""},
+         data: [action.payload.data, ...state.data]
+       }
       }
   }
 
-  return state;
+  return {
+    error: {status: false, message: ""},
+    data: []
+  };
 }

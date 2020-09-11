@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Chart from "../components/chart";
+import { Snackbar } from "../components/reusables/snackbar";
 
 class WeatherList extends Component {
   renderWeather(cityData) {
@@ -33,27 +34,32 @@ class WeatherList extends Component {
     return uniqueAddresses;
   }
 
+
+
   render() {
     return (
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th> CITY </th>
-            <th> TEMPERATURE (K) </th>
-            <th> PRESSURE (hPa) </th>
-            <th> HUMIDITY (%) </th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.removeDuplicates(this.props.weather).map(this.renderWeather)}
-        </tbody>
-      </table>
+      <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th> CITY </th>
+              <th> TEMPERATURE (K) </th>
+              <th> PRESSURE (hPa) </th>
+              <th> HUMIDITY (%) </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.removeDuplicates(this.props.weather.data).map(this.renderWeather)}
+          </tbody>
+        </table>
+        <Snackbar message="snackbar"/>
+      </div>
     );
   }
 }
 
 function mapStateToProps({ weather }) {
-  return { weather: weather };
+  return { weather };
 }
 
 export default connect(mapStateToProps)(WeatherList);
