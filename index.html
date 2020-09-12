@@ -3,10 +3,31 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">
-    <!-- <script src="https://maps.googleapis.com/maps/api/js"></script> -->
+    <script>
+      function toggleMode() {
+        var html = document.getElementsByTagName("HTML")[0];
+        if(html.classList.contains("invert")) {
+          html.classList.remove("invert");
+        } else {
+          html.classList.add("invert");
+        }
+      }
+    </script>
+    <style>
+      .invert:not(img) {
+        filter: invert(1) hue-rotate(180deg);
+      }
+      .change-mode {
+        outline: none;
+    background: none;
+    border: 1px solid black;
+    border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
       <nav class="navbar" style="background-color:skyblue">
+        <button class="change-mode" onclick="toggleMode()">Change Mode</button>
           <h1 style="text-align:center">Weather Application</h1>
         </nav>
     <div id="container"></div>
